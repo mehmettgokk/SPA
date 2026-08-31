@@ -13,7 +13,8 @@ export const useTodoStore = defineStore('todo', () => { // Composition API için
   // Arama, filtre ve sıralama durumları
   const searchQuery = ref('')
   const currentFilter = ref('all') 
-  const currentSort = ref('createdAt-desc')
+  const currentSort = ref('custom') 
+  
 
   // 2. WATCHER (Local Storage Otomatik Senkronizasyonu)
 
@@ -66,26 +67,28 @@ export const useTodoStore = defineStore('todo', () => { // Composition API için
     // C) Sıralama Mantığı
     const priorityWeight = { high: 3, medium: 2, low: 1 }
 
-    result.sort((a, b) => {
-      switch (currentSort.value) {
-        case 'createdAt-desc': // En yeni oluşturulan
-          return new Date(b.createdAt) - new Date(a.createdAt)
-        case 'createdAt-asc': // En eski oluşturulan
-          return new Date(a.createdAt) - new Date(b.createdAt)
-        case 'dueDate-asc': // Son teslim tarihi yaklaşanlar önce
-          if (!a.dueDate) return 1
-          if (!b.dueDate) return -1
-          return new Date(a.dueDate) - new Date(b.dueDate)
-        case 'priority-desc': // Yüksek -> Orta -> Düşük
-          return priorityWeight[b.priority] - priorityWeight[a.priority]
-        case 'alphabet-asc': 
-          return a.title.localeCompare(b.title, 'tr')
-        case 'alphabet-desc':
-          return b.title.localeCompare(a.title, 'tr')
-        default:
-          return 0
-      }
-    })
+    if (currentSort.value !== 'custom') {
+      result.sort((a, b) => {
+        switch (currentSort.value) {
+          case 'createdAt-desc':
+            return new Date(b.createdAt) - new Date(a.createdAt)
+          case 'createdAt-asc':
+            return new Date(a.createdAt) - new Date(b.createdAt)
+          case 'dueDate-asc':
+            if (!a.dueDate) return 1
+            if (!b.dueDate) return -1
+            return new Date(a.dueDate) - new Date(b.dueDate)
+          case 'priority-desc':
+            return priorityWeight[b.priority] - priorityWeight[a.priority]
+          case 'alphabet-asc':
+            return a.title.localeCompare(b.title, 'tr')
+          case 'alphabet-desc':
+            return b.title.localeCompare(a.title, 'tr')
+          default:
+            return 0
+        }
+      })
+    }
 
     return result
   })
@@ -132,6 +135,13 @@ export const useTodoStore = defineStore('todo', () => { // Composition API için
     }
   }
 
+
+  const reorderTasks = (newTasks) => {
+    currentSort.value = 'custom'
+    tasks.value = [...newTasks]
+  }
+
+  
   return {
     tasks,
     searchQuery,
@@ -143,5 +153,6 @@ export const useTodoStore = defineStore('todo', () => { // Composition API için
     updateTask,
     deleteTask,
     toggleTaskStatus,
+    reorderTasks
   }
 })

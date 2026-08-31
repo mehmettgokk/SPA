@@ -1,15 +1,19 @@
 <script setup>
 import { computed } from 'vue'
-import { Calendar, Trash2, Edit3, CheckCircle, Circle, AlertCircle } from 'lucide-vue-next'
+import { Calendar, Trash2, Edit3, CheckCircle, Circle, AlertCircle, GripVertical } from 'lucide-vue-next'
 
 const props = defineProps({
   task: {
     type: Object,
     required: true
+  },
+  index: {
+    type: Number,
+    required: true
   }
 })
 
-const emit = defineEmits(['toggle', 'edit', 'delete'])
+const emit = defineEmits(['toggle', 'edit', 'delete', 'drag-start', 'drag-end', 'item-drop'])
 
 const priorityBadge = computed(() => {
   switch (props.task.priority) {
@@ -41,15 +45,27 @@ const formatDate = (dateString) => {
 
 <template>
   <div
+    draggable="true"
+    @dragstart="emit('drag-start', index, $event)"
+    @dragend="emit('drag-end', $event)"
+    @dragover.prevent
+    @dragenter.prevent
+    @drop.prevent="emit('item-drop', index)"
     :class="[
-      'group p-4 rounded-xl border transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4',
+      'group p-4 rounded-xl border transition-all duration-200 shadow-xs hover:shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-grab active:cursor-grabbing select-none',
       task.isCompleted 
         ? 'border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40' 
         : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-500/30',
       isOverdue ? 'border-rose-300 dark:border-rose-800 bg-rose-50/20 dark:bg-rose-950/20' : ''
     ]"
   >
-    <div class="flex items-start gap-3 flex-1">
+    <div class="flex items-start gap-2.5 flex-1">
+      <!-- Sürükleme Tutamacı İkonu -->
+      <div class="mt-1 text-slate-300 dark:text-slate-600 group-hover:text-slate-500 dark:group-hover:text-slate-400 transition">
+        <GripVertical class="w-4 h-4" />
+      </div>
+
+      <!-- Checkbox -->
       <button 
         @click="emit('toggle', task.id)"
         class="mt-1 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition cursor-pointer shrink-0"
