@@ -1,5 +1,6 @@
 <script setup>
-// State ve bileşenler bir sonraki adımda buraya gelecek
+import StatisticsCards from '../components/StatisticsCards.vue'
+import TodoFilterBar from '../components/TodoFilterBar.vue'
 </script>
 
 <template>
@@ -12,5 +13,8 @@
         Local Storage destekli modern görev yönetim uygulaması
       </p>
     </header>
+
+    <StatisticsCards />
+    <TodoFilterBar />
   </main>
 </template>
