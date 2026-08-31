@@ -9,9 +9,16 @@ import TodoFilterBar from '../components/TodoFilterBar.vue'
 import TodoList from '../components/TodoList.vue'
 import TodoFormModal from '../components/TodoFormModal.vue'
 import ConfirmModal from '../components/ConfirmModal.vue'
+import { useTheme } from '../composables/useTheme'
+
+
+
 
 const todoStore = useTodoStore()
+
 const { showToast } = useToast()
+
+const { isDark, toggleTheme } = useTheme()
 
 // Modal Durumları
 const isFormOpen = ref(false)
@@ -76,7 +83,11 @@ const handleSaveTask = (taskData) => {
 <template>
   <main class="max-w-4xl mx-auto px-4 py-8">
     <!-- Header Bileşeni -->
-    <Header @open-create="openCreateModal" />
+    <Header
+      :is-dark="isDark"
+      @toggle-theme="toggleTheme"
+      @open-create="openCreateModal"
+    />
 
     <!-- İstatistik Kartları -->
     <StatisticsCards />
