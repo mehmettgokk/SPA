@@ -47,7 +47,7 @@ const filters = [
       </div>
     </div>
 
-    <!-- Alt Satır: Filtre Butonları (Yatay Kaydırılabilir) -->
+    <!-- Alt Satır: Filtre Butonları -->
     <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
       <Filter class="w-3.5 h-3.5 text-slate-400 mr-1 flex-shrink-0" />
       <button
