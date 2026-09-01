@@ -15,10 +15,10 @@ Projeyi yerel ortamınıza klonlayıp bağımlılıkları yüklemek için termin
 
 ```bash 
 # Projeyi klonlayın
-git clone <REPO_URL>
+git clone [REPO_URL](https://github.com/mehmettgokk/SPA.git)
 
 # Proje klasörüne girin
-cd <PROJE_KLASOR_ADI>
+cd SPA
 
 # Gerekli paketleri yükleyin
 npm install 
