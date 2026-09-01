@@ -1,5 +1,59 @@
-# Vue 3 + Vite
+# Single Page To-Do Uygulaması (SPA)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Proje Açıklaması: 
+Bu proje, Vue 3 ve Composition API kullanılarak geliştirilmiş bir görev yönetim (Todo) tek sayfa uygulamasıdır (SPA). Görev ekleme, düzenleme, silme, tamamlama durumunu değiştirme ve sürükle-bırak (drag & drop) ile sıralama işlemlerini destekler. Veriler ve tema tercihi Local Storage üzerinde kalıcı olarak tutulmaktadır.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Kullanılan Teknolojiler: 
+* Vue 3 (Composition API, `<script setup>`)
+* Pinia (State Management)
+* Tailwind CSS (Stil ve Dark Mode yönetimi)
+* Lucide Vue Next (İkon seti)
+* Vite: (Geliştirme ve derleme aracı)
+
+## Kurulum Adımları
+Projeyi yerel ortamınıza klonlayıp bağımlılıkları yüklemek için terminalde aşağıdaki adımları uygulayın:
+
+```bash 
+# Projeyi klonlayın
+git clone <REPO_URL>
+
+# Proje klasörüne girin
+cd <PROJE_KLASOR_ADI>
+
+# Gerekli paketleri yükleyin
+npm install 
+
+```
+>
+## Çalıştırma Komutları 
+
+Geliştirme sunucusunu başlatmak için:
+
+```bash
+npm run dev
+```
+
+Komut çalıştıktan sonra tarayıcınızdan http://localhost:5173 adresine giderek projeyi görüntüleyebilirsiniz.
+
+## Build Alma Adımları
+Projeyi canlı ortama hazır hale getirmek ve optimize edilmiş üretim derlemesini oluşturmak için:
+
+```bash
+npm run build
+```
+
+## Proje Klasör Yapısı
+
+```text
+src/
+├── components/     # UI bileşenleri (Header, TodoList, Modallar vb.)
+├── composables/    # useToast, useTheme, useDragAndDrop fonksiyonları
+├── stores/         # Pinia todoStore dosyası
+├── views/          # HomeView sayfa görünümü
+├── App.vue         # Ana kök bileşen
+├── main.js         # Proje giriş noktası
+└── style.css       # Tailwind CSS stilleri
+```
+
+
+
